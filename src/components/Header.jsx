@@ -80,64 +80,52 @@ const Header = () => {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white shadow-lg py-3"
-          : "bg-white/95 backdrop-blur-md py-5"
+          : "bg-white/95 backdrop-blur-md py-4"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20">
         <div className="flex items-center justify-between">
+          {/* Logo */}
           <Link
             to="/"
-            className="text-purple-600 text-2xl md:text-3xl font-bold tracking-wider"
+            className="text-purple-600 text-xl sm:text-2xl md:text-3xl font-bold tracking-wider"
             style={{ fontFamily: "Noto Sans KR, sans-serif" }}
           >
             WARU
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
-            <Link
-              to="/"
-              className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
-            >
-              About
-            </Link>
-            <Link
-              to="/services"
-              className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
-            >
-              Services
-            </Link>
-            <Link
-              to="/contact"
-              className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
-            >
-              Contact
-            </Link>
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+            {["/", "/about", "/services", "/contact"].map((path, index) => {
+              const labels = ["Home", "About", "Services", "Contact"];
+              return (
+                <Link
+                  key={index}
+                  to={path}
+                  className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
+                >
+                  {labels[index]}
+                </Link>
+              );
+            })}
+
             {token ? (
-              <Popover
-                content={content}
-                trigger="click"
-                className="bg-[#9810fa] text-white h-[50px] w-[50px] flex items-center justify-center font-bold cursor-pointer rounded-full "
-              >
-                <span className="bg-[#9810fa] text-white h-[50px] w-[50px] flex items-center justify-center font-bold cursor-pointer rounded-full ">
+              <Popover content={content} trigger="click">
+                <div className="bg-[#9810fa] text-white h-10 w-10 md:h-12 md:w-12 flex items-center justify-center font-bold cursor-pointer rounded-full">
                   {user?.name?.charAt(0)?.toUpperCase()}
-                </span>
+                </div>
               </Popover>
             ) : (
               <Link
                 to="/login"
-                className="px-5 py-2 bg-purple-600 text-white hover:bg-purple-700 transition-all text-sm uppercase tracking-wide font-semibold rounded"
+                className="px-4 py-2 bg-purple-600 text-white hover:bg-purple-700 transition-all text-sm uppercase tracking-wide font-semibold rounded"
               >
                 Login
               </Link>
             )}
           </nav>
 
+          {/* Mobile Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden text-gray-700"
@@ -167,38 +155,73 @@ const Header = () => {
           </button>
         </div>
 
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 flex flex-col gap-4 border-t border-gray-200 pt-4">
             <Link
               to="/"
-              className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-700 hover:text-purple-600 text-sm uppercase font-medium"
             >
               Home
             </Link>
             <Link
               to="/about"
-              className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-700 hover:text-purple-600 text-sm uppercase font-medium"
             >
               About
             </Link>
             <Link
               to="/services"
-              className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-700 hover:text-purple-600 text-sm uppercase font-medium"
             >
               Services
             </Link>
             <Link
               to="/contact"
-              className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-700 hover:text-purple-600 text-sm uppercase font-medium"
             >
               Contact
             </Link>
-            <Link
-              to="/login"
-              className="px-5 py-2 bg-purple-600 text-white hover:bg-purple-700 transition-all text-sm uppercase tracking-wide font-semibold rounded text-center"
-            >
-              Login
-            </Link>
+
+            {/* Mobile Auth Section */}
+            {token ? (
+              <nav>
+                {user?.role === 1 && (
+                  <button
+                    onClick={() => {
+                      navigate("/admin_dashboard");
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-2 text-gray-700 hover:text-purple-600"
+                  >
+                    <MdDashboard /> Dashboard
+                  </button>
+                )}
+
+                <button className="flex items-center gap-2 text-gray-700 hover:text-purple-600">
+                  <FaUser /> Profile
+                </button>
+
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 text-red-600"
+                >
+                  <MdLogout /> Logout
+                </button>
+              </nav>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-4 py-2 bg-purple-600 text-white hover:bg-purple-700 text-sm uppercase font-semibold rounded text-center"
+              >
+                Login
+              </Link>
+            )}
           </nav>
         )}
       </div>
