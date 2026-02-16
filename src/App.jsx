@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Home from "./page/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -10,10 +11,17 @@ import Services from "./page/Services";
 import Contact from "./page/Contact";
 import Admin_Dashboard from "./page/Admin_Dashboard";
 import AuthSuccess from "./page/AuthSuccess";
+import VerifyOtp from "./page/VerifyOtp";
 
 function App() {
   const location = useLocation();
-  const hideHeaderAndFooter = ["/login", "/signup", "/admin_dashboard", "/auth/success"];
+  const hideHeaderAndFooter = [
+    "/login",
+    "/signup",
+    "/admin_dashboard",
+    "/auth/success",
+    "/verify-otp",
+  ];
   const hideHeaderAndFooterPaths = hideHeaderAndFooter.includes(
     location.pathname,
   );
@@ -29,8 +37,10 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin_dashboard" element={<Admin_Dashboard />} />
         <Route path="/auth/success" element={<AuthSuccess />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
       </Routes>
       {!hideHeaderAndFooterPaths && <Footer />}
+      <Toaster />
     </>
   );
 }
