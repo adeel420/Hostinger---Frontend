@@ -15,14 +15,11 @@ const Signup = () => {
     setLoading(true);
     setError("");
     try {
-      await axios.post(
-        `${import.meta.env.VITE_SERVER_API}/user/signup`,
-        {
-          name,
-          email,
-          password,
-        },
-      );
+      await axios.post(`${import.meta.env.VITE_SERVER_API}/user/signup`, {
+        name,
+        email,
+        password,
+      });
       navigate("/verify-otp", { state: { email } });
     } catch (err) {
       setError(err.response?.data?.error || "Signup failed");
@@ -31,13 +28,12 @@ const Signup = () => {
     }
   };
 
-
   const handleSocialSignup = (provider) => {
     window.location.href = `${import.meta.env.VITE_SERVER_API}/user/auth/${provider}`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen py-6 bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1
@@ -57,56 +53,56 @@ const Signup = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
-                  placeholder="Your name"
-                  required
-                />
-              </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-2">
+                Name
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                placeholder="Your name"
+                required
+              />
+            </div>
 
-              <div>
-                <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
 
-              <div>
-                <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                placeholder="••••••••"
+                required
+              />
+            </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400"
-              >
-                {loading ? "Signing up..." : "Sign Up"}
-              </button>
-            </form>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400"
+            >
+              {loading ? "Signing up..." : "Sign Up"}
+            </button>
+          </form>
 
           <div className="my-6 flex items-center">
             <div className="flex-1 border-t border-gray-300"></div>

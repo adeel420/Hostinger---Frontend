@@ -32,12 +32,12 @@ const Login = () => {
   };
 
   const handleSocialLogin = (provider) => {
-    const API_URL = import.meta.env.VITE_SERVER_API
+    const API_URL = import.meta.env.VITE_SERVER_API;
     window.location.href = `${API_URL}/user/auth/${provider}`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4">
+    <div className="min-h-screen py-12 bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1
