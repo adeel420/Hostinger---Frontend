@@ -1,7 +1,8 @@
 export const initGoogleAuth = () => {
   return new Promise((resolve) => {
     window.google.accounts.id.initialize({
-      client_id: "YOUR_GOOGLE_CLIENT_ID",
+      client_id:
+        "104183537537-5jtaef1c2od1v1im2jq8nhdmfke30s87.apps.googleusercontent.com",
       callback: resolve,
     });
   });
@@ -10,7 +11,8 @@ export const initGoogleAuth = () => {
 export const handleGoogleLogin = () => {
   return new Promise((resolve, reject) => {
     window.google.accounts.id.initialize({
-      client_id: "YOUR_GOOGLE_CLIENT_ID",
+      client_id:
+        "104183537537-5jtaef1c2od1v1im2jq8nhdmfke30s87.apps.googleusercontent.com",
       callback: (response) => {
         const decoded = JSON.parse(atob(response.credential.split(".")[1]));
         resolve({
