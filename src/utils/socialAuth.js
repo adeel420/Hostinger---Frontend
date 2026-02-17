@@ -32,7 +32,7 @@ export const handleGoogleLogin = () => {
 };
 
 export const handleGithubLogin = () => {
-  const clientId = "YOUR_GITHUB_CLIENT_ID";
+  const clientId = "Ov23lipHurAPy9dlruxi";
   const redirectUri =
     "https://hostinger-backend.onrender.comauth/github/callback";
   window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
