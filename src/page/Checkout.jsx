@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaShieldAlt, FaLock, FaBolt, FaUniversity, FaMobileAlt, FaWallet } from "react-icons/fa";
 
 const Checkout = () => {
   const location = useLocation();
@@ -86,52 +86,90 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-16">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">
-          Complete Your Order
-        </h1>
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-600 to-pink-600 rounded-3xl mb-6 shadow-2xl">
+            <FaCheckCircle className="text-white text-4xl" />
+          </div>
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent mb-4">
+            Complete Your Order
+          </h1>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            You're just one step away from getting started. Fill in your details and complete the payment.
+          </p>
+        </div>
+
+        {/* Trust Badges */}
+        <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto mb-12">
+          <div className="flex items-center justify-center gap-2 bg-white rounded-xl p-3 shadow-lg">
+            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+              <FaShieldAlt className="text-white text-sm" />
+            </div>
+            <span className="text-sm font-semibold text-gray-700">Secure Payment</span>
+          </div>
+          <div className="flex items-center justify-center gap-2 bg-white rounded-xl p-3 shadow-lg">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+              <FaLock className="text-white text-sm" />
+            </div>
+            <span className="text-sm font-semibold text-gray-700">Data Protected</span>
+          </div>
+          <div className="flex items-center justify-center gap-2 bg-white rounded-xl p-3 shadow-lg">
+            <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+              <FaBolt className="text-white text-sm" />
+            </div>
+            <span className="text-sm font-semibold text-gray-700">Instant Setup</span>
+          </div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {/* Order Summary */}
           <div className="md:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Order Summary</h2>
+            <div className="bg-white rounded-3xl shadow-2xl p-8 sticky top-24 border border-gray-100">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center">
+                  <FaCheckCircle className="text-white text-xl" />
+                </div>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Order Summary</h2>
+              </div>
               
-              <div className="border-b pb-4 mb-4">
-                <p className="text-gray-600 text-sm mb-2">
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 mb-6">
+                <p className="text-gray-600 text-sm mb-2 font-semibold">
                   {type === "hosting" ? "Hosting Plan" : "Domain"}
                 </p>
-                <p className="text-xl font-bold text-gray-900">
+                <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   {type === "hosting" ? plan.name : domain.domainName || domain.extension}
                 </p>
               </div>
 
               {type === "hosting" && (
-                <div className="space-y-2 mb-4 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Storage:</span>
-                    <span className="font-semibold">{plan.storage}</span>
+                <div className="space-y-3 mb-6">
+                  <div className="flex justify-between items-center bg-gray-50 rounded-xl p-3">
+                    <span className="text-gray-600 font-semibold">Storage:</span>
+                    <span className="font-bold text-gray-900">{plan.storage}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Bandwidth:</span>
-                    <span className="font-semibold">{plan.bandwidth}</span>
+                  <div className="flex justify-between items-center bg-gray-50 rounded-xl p-3">
+                    <span className="text-gray-600 font-semibold">Bandwidth:</span>
+                    <span className="font-bold text-gray-900">{plan.bandwidth}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Websites:</span>
-                    <span className="font-semibold">{plan.websites}</span>
+                  <div className="flex justify-between items-center bg-gray-50 rounded-xl p-3">
+                    <span className="text-gray-600 font-semibold">Websites:</span>
+                    <span className="font-bold text-gray-900">{plan.websites}</span>
                   </div>
                 </div>
               )}
 
-              <div className="border-t pt-4">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-gray-600">Subtotal:</span>
-                  <span className="font-semibold">Rs {price}</span>
+              <div className="border-t-2 border-gray-200 pt-6">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-gray-600 font-semibold">Subtotal:</span>
+                  <span className="font-bold text-gray-900">Rs {price}</span>
                 </div>
-                <div className="flex justify-between items-center text-xl font-bold text-purple-600">
-                  <span>Total:</span>
-                  <span>Rs {price}</span>
+                <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-4">
+                  <div className="flex justify-between items-center text-white">
+                    <span className="text-lg font-bold">Total Amount:</span>
+                    <span className="text-2xl font-bold">Rs {price}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -139,12 +177,17 @@ const Checkout = () => {
 
           {/* Checkout Form */}
           <div className="md:col-span-2">
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Billing Information</h2>
+            <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center">
+                  <FaLock className="text-white text-xl" />
+                </div>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Billing Information</h2>
+              </div>
               
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block text-gray-700 font-bold mb-3">
                     Full Name *
                   </label>
                   <input
@@ -152,13 +195,14 @@ const Checkout = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
+                    placeholder="Enter your full name"
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block text-gray-700 font-bold mb-3">
                     Email Address *
                   </label>
                   <input
@@ -166,13 +210,14 @@ const Checkout = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
+                    placeholder="your@email.com"
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block text-gray-700 font-bold mb-3">
                     Phone Number *
                   </label>
                   <input
@@ -180,13 +225,14 @@ const Checkout = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
+                    placeholder="03XX-XXXXXXX"
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block text-gray-700 font-bold mb-3">
                     Address
                   </label>
                   <input
@@ -194,92 +240,172 @@ const Checkout = () => {
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
+                    placeholder="Your address (optional)"
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
                   />
                 </div>
               </div>
 
-              <div className="mb-6">
-                <label className="block text-gray-700 font-semibold mb-4">
+              <div className="mb-8">
+                <label className="block text-gray-700 font-bold mb-4">
                   Payment Method *
                 </label>
-                <div className="space-y-3">
-                  <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-purple-600 transition-colors">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value="bank"
-                      checked={formData.paymentMethod === "bank"}
-                      onChange={handleChange}
-                      className="mr-3"
-                    />
-                    <span className="font-semibold">Bank Transfer</span>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <label className={`group cursor-pointer transition-all ${
+                    formData.paymentMethod === "bank"
+                      ? "ring-2 ring-purple-600"
+                      : "hover:shadow-lg"
+                  }`}>
+                    <div className="bg-white border-2 border-gray-200 rounded-2xl p-5 text-center">
+                      <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl flex items-center justify-center transition-all ${
+                        formData.paymentMethod === "bank"
+                          ? "bg-gradient-to-br from-blue-600 to-cyan-600 scale-110"
+                          : "bg-gradient-to-br from-blue-100 to-cyan-100"
+                      }`}>
+                        <FaUniversity className={`text-2xl ${
+                          formData.paymentMethod === "bank" ? "text-white" : "text-blue-600"
+                        }`} />
+                      </div>
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="bank"
+                        checked={formData.paymentMethod === "bank"}
+                        onChange={handleChange}
+                        className="hidden"
+                      />
+                      <span className="font-bold text-gray-900">Bank Transfer</span>
+                    </div>
                   </label>
                   
-                  <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-purple-600 transition-colors">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value="easypaisa"
-                      checked={formData.paymentMethod === "easypaisa"}
-                      onChange={handleChange}
-                      className="mr-3"
-                    />
-                    <span className="font-semibold">EasyPaisa</span>
+                  <label className={`group cursor-pointer transition-all ${
+                    formData.paymentMethod === "easypaisa"
+                      ? "ring-2 ring-purple-600"
+                      : "hover:shadow-lg"
+                  }`}>
+                    <div className="bg-white border-2 border-gray-200 rounded-2xl p-5 text-center">
+                      <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl flex items-center justify-center transition-all ${
+                        formData.paymentMethod === "easypaisa"
+                          ? "bg-gradient-to-br from-green-600 to-emerald-600 scale-110"
+                          : "bg-gradient-to-br from-green-100 to-emerald-100"
+                      }`}>
+                        <FaMobileAlt className={`text-2xl ${
+                          formData.paymentMethod === "easypaisa" ? "text-white" : "text-green-600"
+                        }`} />
+                      </div>
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="easypaisa"
+                        checked={formData.paymentMethod === "easypaisa"}
+                        onChange={handleChange}
+                        className="hidden"
+                      />
+                      <span className="font-bold text-gray-900">EasyPaisa</span>
+                    </div>
                   </label>
 
-                  <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-purple-600 transition-colors">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value="jazzcash"
-                      checked={formData.paymentMethod === "jazzcash"}
-                      onChange={handleChange}
-                      className="mr-3"
-                    />
-                    <span className="font-semibold">JazzCash</span>
+                  <label className={`group cursor-pointer transition-all ${
+                    formData.paymentMethod === "jazzcash"
+                      ? "ring-2 ring-purple-600"
+                      : "hover:shadow-lg"
+                  }`}>
+                    <div className="bg-white border-2 border-gray-200 rounded-2xl p-5 text-center">
+                      <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl flex items-center justify-center transition-all ${
+                        formData.paymentMethod === "jazzcash"
+                          ? "bg-gradient-to-br from-orange-600 to-red-600 scale-110"
+                          : "bg-gradient-to-br from-orange-100 to-red-100"
+                      }`}>
+                        <FaWallet className={`text-2xl ${
+                          formData.paymentMethod === "jazzcash" ? "text-white" : "text-orange-600"
+                        }`} />
+                      </div>
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="jazzcash"
+                        checked={formData.paymentMethod === "jazzcash"}
+                        onChange={handleChange}
+                        className="hidden"
+                      />
+                      <span className="font-bold text-gray-900">JazzCash</span>
+                    </div>
                   </label>
                 </div>
               </div>
 
               {formData.paymentMethod === "bank" && (
-                <div className="mb-6 p-4 bg-blue-50 rounded-lg">
-                  <h3 className="font-bold text-gray-900 mb-2">Bank Details:</h3>
-                  <p className="text-sm text-gray-700">
-                    Account Title: WARU Hosting<br />
-                    Account Number: 1234567890<br />
-                    Bank: HBL<br />
-                    IBAN: PK12HABB0000001234567890
-                  </p>
+                <div className="mb-8 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border-2 border-blue-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center">
+                      <FaUniversity className="text-white" />
+                    </div>
+                    <h3 className="font-bold text-gray-900 text-lg">Bank Transfer Details</h3>
+                  </div>
+                  <div className="space-y-2 text-gray-700">
+                    <div className="flex justify-between bg-white rounded-xl p-3">
+                      <span className="font-semibold">Account Title:</span>
+                      <span className="font-bold">WARU Hosting</span>
+                    </div>
+                    <div className="flex justify-between bg-white rounded-xl p-3">
+                      <span className="font-semibold">Account Number:</span>
+                      <span className="font-bold">1234567890</span>
+                    </div>
+                    <div className="flex justify-between bg-white rounded-xl p-3">
+                      <span className="font-semibold">Bank:</span>
+                      <span className="font-bold">HBL</span>
+                    </div>
+                    <div className="flex justify-between bg-white rounded-xl p-3">
+                      <span className="font-semibold">IBAN:</span>
+                      <span className="font-bold">PK12HABB0000001234567890</span>
+                    </div>
+                  </div>
                 </div>
               )}
 
-              <div className="mb-6">
-                <label className="block text-gray-700 font-semibold mb-2">
+              <div className="mb-8">
+                <label className="block text-gray-700 font-bold mb-3">
                   Upload Payment Proof *
                 </label>
-                <input
-                  type="file"
-                  onChange={handleFileChange}
-                  accept="image/*"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
-                />
+                <div className="relative">
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gradient-to-r file:from-purple-600 file:to-pink-600 file:text-white file:font-semibold file:cursor-pointer hover:file:from-purple-700 hover:file:to-pink-700"
+                  />
+                </div>
+                <p className="text-sm text-gray-500 mt-2">Upload a screenshot or photo of your payment receipt</p>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-purple-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-purple-700 transition-all disabled:bg-gray-400 flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 text-white py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3"
               >
                 {loading ? (
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                  <>
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                    <span>Processing...</span>
+                  </>
                 ) : (
                   <>
-                    <FaCheckCircle />
-                    Place Order
+                    <FaCheckCircle className="text-xl" />
+                    <span>Complete Order - Rs {price}</span>
                   </>
                 )}
               </button>
+              
+              <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-500">
+                <div className="flex items-center gap-2">
+                  <FaShieldAlt className="text-green-600" />
+                  <span>Secure Payment</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaLock className="text-blue-600" />
+                  <span>Encrypted Data</span>
+                </div>
+              </div>
             </form>
           </div>
         </div>

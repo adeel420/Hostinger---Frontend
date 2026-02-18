@@ -55,74 +55,74 @@ const Payments = () => {
 
   return (
     <div>
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+      <div className="mb-8">
+        <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
           Payment Verification
         </h2>
-        <p className="text-gray-600">Approve or reject payment proofs</p>
+        <p className="text-gray-600 text-lg">Approve or reject payment proofs</p>
       </div>
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-4 text-left text-sm font-bold uppercase">
                   Order ID
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-4 text-left text-sm font-bold uppercase">
                   Customer
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-4 text-left text-sm font-bold uppercase">
                   Type
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-4 text-left text-sm font-bold uppercase">
                   Method
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-4 text-left text-sm font-bold uppercase">
                   Amount
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-4 text-left text-sm font-bold uppercase">
                   Proof
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-4 text-left text-sm font-bold uppercase">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {orders.map((order) => (
-                <tr key={order._id}>
-                  <td className="px-6 py-4 text-sm text-gray-900">#{order._id.slice(-6)}</td>
+                <tr key={order._id} className="hover:bg-purple-50 transition-colors">
+                  <td className="px-6 py-4 text-sm font-bold text-gray-900">#{order._id.slice(-6)}</td>
                   <td className="px-6 py-4 text-sm text-gray-600">
                     {order.userId?.email || "N/A"}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{order.orderType}</td>
+                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">{order.orderType}</td>
                   <td className="px-6 py-4 text-sm text-gray-900">{order.paymentMethod}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">PKR {order.amount}</td>
+                  <td className="px-6 py-4 text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">PKR {order.amount}</td>
                   <td className="px-6 py-4">
                     {order.paymentProof ? (
                       <a
                         href={order.paymentProof}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 hover:underline font-medium"
                       >
                         View Screenshot
                       </a>
                     ) : (
-                      "No proof"
+                      <span className="text-gray-400">No proof</span>
                     )}
                   </td>
                   <td className="px-6 py-4 flex gap-2">
                     <button
                       onClick={() => handleApprove(order._id)}
-                      className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200"
+                      className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-colors"
                     >
                       <CheckCircle className="w-5 h-5" />
                     </button>
                     <button
                       onClick={() => handleReject(order._id)}
-                      className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200"
+                      className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
                     >
                       <XCircle className="w-5 h-5" />
                     </button>

@@ -33,19 +33,20 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen py-6 bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
+        {/* Logo Section */}
         <div className="text-center mb-8">
-          <h1
-            className="text-4xl font-bold text-purple-600 mb-2"
-            style={{ fontFamily: "Noto Sans KR, sans-serif" }}
-          >
-            HostPro
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl mb-4 shadow-lg">
+            <span className="text-3xl font-bold text-white">H</span>
+          </div>
+          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+            Create Account
           </h1>
-          <p className="text-gray-600">Create your account</p>
+          <p className="text-gray-600">Join us today</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-xl p-8">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
           {error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
               {error}
@@ -98,7 +99,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400"
+              className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50"
             >
               {loading ? "Signing up..." : "Sign Up"}
             </button>

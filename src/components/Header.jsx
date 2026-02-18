@@ -79,8 +79,8 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white shadow-lg py-3"
-          : "bg-white/95 backdrop-blur-md py-4"
+          ? "bg-white shadow-2xl py-3"
+          : "bg-white/95 backdrop-blur-lg py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20">
@@ -88,10 +88,14 @@ const Header = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="text-purple-600 text-xl sm:text-2xl md:text-3xl font-bold tracking-wider"
-            style={{ fontFamily: "Noto Sans KR, sans-serif" }}
+            className="flex items-center gap-2"
           >
-            WARU
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-xl">H</span>
+            </div>
+            <span className="text-2xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              HostPro
+            </span>
           </Link>
 
           {/* Desktop Menu */}
@@ -116,23 +120,24 @@ const Header = () => {
                 <Link
                   key={index}
                   to={path}
-                  className="text-gray-700 hover:text-purple-600 transition-colors text-sm uppercase tracking-wide font-medium"
+                  className="text-gray-700 hover:text-purple-600 transition-colors text-sm font-semibold relative group"
                 >
                   {labels[index]}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:w-full transition-all duration-300"></span>
                 </Link>
               );
             })}
 
             {token ? (
               <Popover content={content} trigger="click">
-                <div className="bg-[#9810fa] text-white h-10 w-10 md:h-12 md:w-12 flex items-center justify-center font-bold cursor-pointer rounded-full">
+                <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white h-10 w-10 md:h-12 md:w-12 flex items-center justify-center font-bold cursor-pointer rounded-xl shadow-lg hover:shadow-xl transition-all">
                   {user?.name?.charAt(0)?.toUpperCase()}
                 </div>
               </Popover>
             ) : (
               <Link
                 to="/login"
-                className="px-4 py-2 bg-purple-600 text-white hover:bg-purple-700 transition-all text-sm uppercase tracking-wide font-semibold rounded"
+                className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 transition-all text-sm font-bold rounded-xl shadow-lg hover:shadow-xl"
               >
                 Login
               </Link>
