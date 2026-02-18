@@ -9,6 +9,9 @@ import Signup from "./page/Signup";
 import About from "./page/About";
 import Services from "./page/Services";
 import Contact from "./page/Contact";
+import Hosting from "./page/Hosting";
+import Domain from "./page/Domain";
+import Checkout from "./page/Checkout";
 import Admin_Dashboard from "./page/Admin_Dashboard";
 import AuthSuccess from "./page/AuthSuccess";
 import VerifyOtp from "./page/VerifyOtp";
@@ -30,6 +33,9 @@ function App() {
       {!hideHeaderAndFooterPaths && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/hosting" element={<Hosting />} />
+        <Route path="/domain" element={<Domain />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />

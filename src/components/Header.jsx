@@ -96,8 +96,22 @@ const Header = () => {
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-            {["/", "/about", "/services", "/contact"].map((path, index) => {
-              const labels = ["Home", "About", "Services", "Contact"];
+            {[
+              "/",
+              "/hosting",
+              "/domain",
+              "/about",
+              "/services",
+              "/contact",
+            ].map((path, index) => {
+              const labels = [
+                "Home",
+                "Hosting",
+                "Domain",
+                "About",
+                "Services",
+                "Contact",
+              ];
               return (
                 <Link
                   key={index}
@@ -164,6 +178,20 @@ const Header = () => {
               className="text-gray-700 hover:text-purple-600 text-sm uppercase font-medium"
             >
               Home
+            </Link>
+            <Link
+              to="/hosting"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-700 hover:text-purple-600 text-sm uppercase font-medium"
+            >
+              Hosting
+            </Link>
+            <Link
+              to="/domain"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-700 hover:text-purple-600 text-sm uppercase font-medium"
+            >
+              Domain
             </Link>
             <Link
               to="/about"
