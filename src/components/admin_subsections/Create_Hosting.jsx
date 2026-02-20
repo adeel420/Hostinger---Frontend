@@ -5,31 +5,40 @@ import axios from "axios";
 const Create_Hosting = () => {
   const [formData, setFormData] = useState({
     name: "",
-    hostingType: "shared",
-    price: "",
-    period: "monthly",
+    monthlyPrice: "",
+    quarterlyPrice: "",
+    semiannuallyPrice: "",
+    annuallyPrice: "",
     storage: "",
     bandwidth: "",
     websites: "",
     emailAccounts: "",
-    cpuCores: "",
-    ram: "",
     features: "",
     isPopular: false,
-    whmcsProductId: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+      const apiUrl = import.meta.env.VITE_SERVER_API;
       
       await axios.post(
         `${apiUrl}/hosting/plans`,
         {
-          ...formData,
+          name: formData.name,
+          pricing: {
+            monthly: parseFloat(formData.monthlyPrice),
+            quarterly: formData.quarterlyPrice ? parseFloat(formData.quarterlyPrice) : null,
+            semiannually: formData.semiannuallyPrice ? parseFloat(formData.semiannuallyPrice) : null,
+            annually: formData.annuallyPrice ? parseFloat(formData.annuallyPrice) : null,
+          },
+          storage: formData.storage,
+          bandwidth: formData.bandwidth,
+          websites: formData.websites,
+          emailAccounts: formData.emailAccounts,
           features: formData.features.split(",").map((f) => f.trim()),
+          isPopular: formData.isPopular,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -37,18 +46,16 @@ const Create_Hosting = () => {
       alert("Hosting plan created successfully!");
       setFormData({
         name: "",
-        hostingType: "shared",
-        price: "",
-        period: "monthly",
+        monthlyPrice: "",
+        quarterlyPrice: "",
+        semiannuallyPrice: "",
+        annuallyPrice: "",
         storage: "",
         bandwidth: "",
         websites: "",
         emailAccounts: "",
-        cpuCores: "",
-        ram: "",
         features: "",
         isPopular: false,
-        whmcsProductId: "",
       });
     } catch (err) {
       alert(err.response?.data?.error || "Failed to create plan");
@@ -57,86 +64,98 @@ const Create_Hosting = () => {
 
   return (
     <div>
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+      <div className="mb-8">
+        <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
           Create Hosting Plan
         </h2>
-        <p className="text-gray-600">Add new hosting plan</p>
+        <p className="text-gray-600 text-lg">Add new shared hosting plan</p>
       </div>
-      <div className="bg-white rounded-lg shadow-md p-6 max-w-2xl">
-        <form className="space-y-4" onSubmit={handleSubmit}>
+      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-3xl border border-gray-100">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Hosting Type
-            </label>
-            <select
-              value={formData.hostingType}
-              onChange={(e) => setFormData({ ...formData, hostingType: e.target.value })}
-              className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
-            >
-              <option value="shared">Shared Hosting</option>
-              <option value="wordpress">WordPress Hosting</option>
-              <option value="vps">VPS Hosting</option>
-              <option value="dedicated">Dedicated Server</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-gray-700 font-bold mb-3">
               Plan Name
             </label>
             <input
               type="text"
-              placeholder="Starter"
+              placeholder="Starter Plan"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
               required
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price (PKR)
-              </label>
-              <input
-                type="number"
-                placeholder="1500"
-                value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Period
-              </label>
-              <select
-                value={formData.period}
-                onChange={(e) => setFormData({ ...formData, period: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
-              >
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-              </select>
+          
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6">
+            <h3 className="font-bold text-gray-900 mb-4 text-lg">Pricing (PKR)</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Monthly Price *
+                </label>
+                <input
+                  type="number"
+                  placeholder="1500"
+                  value={formData.monthlyPrice}
+                  onChange={(e) => setFormData({ ...formData, monthlyPrice: e.target.value })}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Quarterly (3 months)
+                </label>
+                <input
+                  type="number"
+                  placeholder="4000"
+                  value={formData.quarterlyPrice}
+                  onChange={(e) => setFormData({ ...formData, quarterlyPrice: e.target.value })}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Semi-annually (6 months)
+                </label>
+                <input
+                  type="number"
+                  placeholder="7500"
+                  value={formData.semiannuallyPrice}
+                  onChange={(e) => setFormData({ ...formData, semiannuallyPrice: e.target.value })}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Annually (12 months)
+                </label>
+                <input
+                  type="number"
+                  placeholder="14000"
+                  value={formData.annuallyPrice}
+                  onChange={(e) => setFormData({ ...formData, annuallyPrice: e.target.value })}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none"
+                />
+              </div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-gray-700 font-bold mb-3">
                 Storage
               </label>
               <input
                 type="text"
-                placeholder="10 GB"
+                placeholder="10 GB SSD"
                 value={formData.storage}
                 onChange={(e) => setFormData({ ...formData, storage: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
+                className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-gray-700 font-bold mb-3">
                 Bandwidth
               </label>
               <input
@@ -144,14 +163,14 @@ const Create_Hosting = () => {
                 placeholder="Unlimited"
                 value={formData.bandwidth}
                 onChange={(e) => setFormData({ ...formData, bandwidth: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
+                className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
                 required
               />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-gray-700 font-bold mb-3">
                 Websites
               </label>
               <input
@@ -159,12 +178,12 @@ const Create_Hosting = () => {
                 placeholder="1 Website"
                 value={formData.websites}
                 onChange={(e) => setFormData({ ...formData, websites: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
+                className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-gray-700 font-bold mb-3">
                 Email Accounts
               </label>
               <input
@@ -172,80 +191,40 @@ const Create_Hosting = () => {
                 placeholder="10 Accounts"
                 value={formData.emailAccounts}
                 onChange={(e) => setFormData({ ...formData, emailAccounts: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
+                className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
                 required
               />
             </div>
           </div>
-          {(formData.hostingType === "vps" || formData.hostingType === "dedicated") && (
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  CPU Cores
-                </label>
-                <input
-                  type="text"
-                  placeholder="4 Cores"
-                  value={formData.cpuCores}
-                  onChange={(e) => setFormData({ ...formData, cpuCores: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  RAM
-                </label>
-                <input
-                  type="text"
-                  placeholder="8 GB"
-                  value={formData.ram}
-                  onChange={(e) => setFormData({ ...formData, ram: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
-                />
-              </div>
-            </div>
-          )}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              WHMCS Product ID (Optional)
-            </label>
-            <input
-              type="number"
-              placeholder="123"
-              value={formData.whmcsProductId}
-              onChange={(e) => setFormData({ ...formData, whmcsProductId: e.target.value })}
-              className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-gray-700 font-bold mb-3">
               Features (comma separated)
             </label>
             <textarea
-              placeholder="Free SSL, 24/7 Support, Daily Backups"
+              placeholder="Free SSL, 24/7 Support, Daily Backups, cPanel Access"
               rows="3"
               value={formData.features}
               onChange={(e) => setFormData({ ...formData, features: e.target.value })}
-              className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition-all"
             ></textarea>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 bg-purple-50 p-4 rounded-xl">
             <input
               type="checkbox"
               checked={formData.isPopular}
               onChange={(e) => setFormData({ ...formData, isPopular: e.target.checked })}
-              className="w-4 h-4"
+              className="w-5 h-5"
             />
-            <label className="text-sm font-medium text-gray-700">
-              Mark as Popular
+            <label className="text-gray-700 font-bold">
+              Mark as Popular Plan
             </label>
           </div>
           <button
             type="submit"
-            className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 font-semibold flex items-center justify-center gap-2"
+            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl hover:opacity-90 font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
           >
             <Plus className="w-5 h-5" />
-            Add Hosting Plan
+            Create Hosting Plan
           </button>
         </form>
       </div>

@@ -33,12 +33,19 @@ const Header = () => {
 
   const content = (
     <div className="w-[150px]">
-      {user?.role === 1 && (
+      {user?.role === 1 ? (
         <li
           onClick={() => navigate("/admin_dashboard")}
           className="hover:bg-[#9810fa] hover:text-white p-2 cursor-pointer text-black flex gap-2 items-center text-[18px] font-semibold rounded"
         >
-          <MdDashboard /> Dashboard
+          <MdDashboard /> Admin Panel
+        </li>
+      ) : (
+        <li
+          onClick={() => navigate("/dashboard")}
+          className="hover:bg-[#9810fa] hover:text-white p-2 cursor-pointer text-black flex gap-2 items-center text-[18px] font-semibold rounded"
+        >
+          <MdDashboard /> My Dashboard
         </li>
       )}
 
@@ -223,7 +230,7 @@ const Header = () => {
             {/* Mobile Auth Section */}
             {token ? (
               <nav>
-                {user?.role === 1 && (
+                {user?.role === 1 ? (
                   <button
                     onClick={() => {
                       navigate("/admin_dashboard");
@@ -231,7 +238,17 @@ const Header = () => {
                     }}
                     className="flex items-center gap-2 text-gray-700 hover:text-purple-600"
                   >
-                    <MdDashboard /> Dashboard
+                    <MdDashboard /> Admin Panel
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard");
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-2 text-gray-700 hover:text-purple-600"
+                  >
+                    <MdDashboard /> My Dashboard
                   </button>
                 )}
 

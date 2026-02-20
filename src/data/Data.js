@@ -12,8 +12,9 @@ export const adminDashBtn = [
   { id: 2, title: "Update Domain", icon: "Edit" },
   { id: 3, title: "Create Hosting", icon: "Server" },
   { id: 4, title: "Update Hosting", icon: "Settings" },
-  { id: 5, title: "Orders", icon: "ShoppingCart" },
-  { id: 6, title: "Payments", icon: "CreditCard" },
-  { id: 7, title: "Contact Messages", icon: "Mail" },
-  { id: 8, title: "Logout", icon: "LogOut" },
+  { id: 5, title: "Services Management", icon: "Database" },
+  { id: 6, title: "Orders", icon: "ShoppingCart" },
+  { id: 7, title: "Payments", icon: "CreditCard" },
+  { id: 8, title: "Contact Messages", icon: "Mail" },
+  { id: 9, title: "Logout", icon: "LogOut" },
 ];

@@ -13,6 +13,7 @@ import Hosting from "./page/Hosting";
 import Domain from "./page/Domain";
 import Checkout from "./page/Checkout";
 import Admin_Dashboard from "./page/Admin_Dashboard";
+import UserDashboard from "./page/UserDashboard";
 import AuthSuccess from "./page/AuthSuccess";
 import VerifyOtp from "./page/VerifyOtp";
 
@@ -22,6 +23,7 @@ function App() {
     "/login",
     "/signup",
     "/admin_dashboard",
+    "/dashboard",
     "/auth/success",
     "/verify-otp",
   ];
@@ -36,6 +38,7 @@ function App() {
         <Route path="/hosting" element={<Hosting />} />
         <Route path="/domain" element={<Domain />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />

@@ -6,6 +6,7 @@ import {
   Edit,
   Server,
   Settings,
+  Database,
   ShoppingCart,
   CreditCard,
   Mail,
@@ -17,6 +18,7 @@ import Create_Domain from "../components/admin_subsections/Create_Domain";
 import Update_Domain from "../components/admin_subsections/Update_Domain";
 import Create_Hosting from "../components/admin_subsections/Create_Hosting";
 import Update_Hosting from "../components/admin_subsections/Update_Hosting";
+import Services_Management from "../components/admin_subsections/Services_Management";
 import Orders from "../components/admin_subsections/Orders";
 import Payments from "../components/admin_subsections/Payments";
 import Contact_Messages from "../components/admin_subsections/Contact_Messages";
@@ -31,6 +33,7 @@ const Admin_Dashboard = () => {
     Edit: <Edit className="w-5 h-5" />,
     Server: <Server className="w-5 h-5" />,
     Settings: <Settings className="w-5 h-5" />,
+    Database: <Database className="w-5 h-5" />,
     ShoppingCart: <ShoppingCart className="w-5 h-5" />,
     CreditCard: <CreditCard className="w-5 h-5" />,
     Mail: <Mail className="w-5 h-5" />,
@@ -83,11 +86,12 @@ const Admin_Dashboard = () => {
         {activeBtn === 2 && <Update_Domain />}
         {activeBtn === 3 && <Create_Hosting />}
         {activeBtn === 4 && <Update_Hosting />}
-        {activeBtn === 5 && <Orders />}
-        {activeBtn === 6 && <Payments />}
-        {activeBtn === 7 && <Contact_Messages />}
+        {activeBtn === 5 && <Services_Management />}
+        {activeBtn === 6 && <Orders />}
+        {activeBtn === 7 && <Payments />}
+        {activeBtn === 8 && <Contact_Messages />}
 
-        {activeBtn === 8 && (
+        {activeBtn === 9 && (
           <div className="flex items-center justify-center h-96">
             <div className="text-center bg-white rounded-3xl shadow-2xl p-12 border border-gray-100">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl mb-6">
